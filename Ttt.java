@@ -12,6 +12,7 @@ public class Ttt implements GameState{
 
   
   public static Ttt setup(){
+	  
     Scanner reader = new Scanner(System.in);
     System.out.println("Player One, enter your name: ");
     Player x = new Player(reader.nextLine().trim()+ " (x)");
@@ -23,10 +24,15 @@ public class Ttt implements GameState{
 	
   }
   
-   private String[][] state = {
-    {"-", "-", "-"}, 
-    {"-", "-", "-"},
-    {"-", "-", "-"}
+   // private String[][] state = {
+    // {"-", "-", "-"}, 
+    // {"-", "-", "-"},
+    // {"-", "-", "-"}
+  // };
+  private Square[][] state = {
+	  {new Square(0,0),new Square(0,1),new Square(0,2)},
+	  {new Square(1,0),new Square(1,1),new Square(1,2)},
+	  {new Square(2,0),new Square(2,1),new Square(2,2)}
   };
   
   public boolean isGameover(){
@@ -73,7 +79,7 @@ public class Ttt implements GameState{
     ArrayList<String> result = new ArrayList<String>();
     for(int i = 0; i<state.length; i++)
       for(int j = 0; j<state.length; j++)
-        if(state[i][j].equals("-"))
+        if(state[i][j].getStatus() == Status.BLANK)
           result.add(i+" "+j);
     return result;
   }
@@ -88,13 +94,13 @@ public class Ttt implements GameState{
 
     int[] latestMove = stringMoveToIntMove(move);
 
-    if(state[latestMove[0]][latestMove[1]].equals("-")){
+    if(state[latestMove[0]][latestMove[1]].getStatus() == Status.BLANK){
 
       if(getCurrentPlayer() == x){
-        state[latestMove[0]][latestMove[1]] = "x";
+        state[latestMove[0]][latestMove[1]].setStatus(Status.X);
       }
       if(getCurrentPlayer() == o){
-        state[latestMove[0]][latestMove[1]] = "o";
+        state[latestMove[0]][latestMove[1]].setStatus(Status.O);
       }
       togglePlayers();
     }
@@ -107,7 +113,7 @@ public class Ttt implements GameState{
     String outputS = "";
     for(String[] r:state){
       for(String c:r){
-        outputS += c+" ";
+        outputS += +" ";
       }
       outputS += "\n";
     }
