@@ -31,6 +31,11 @@ public class Ttt implements GameState{
     public Status getStatus(){
       return current;
     }
+    public String toString(){
+      if(current == Status.X) return "X";
+      if(current == Status.O) return "O";
+      return "-";
+    }
   }
   
   public static Ttt setup(){
