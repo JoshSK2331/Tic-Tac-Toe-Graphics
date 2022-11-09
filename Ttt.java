@@ -1,3 +1,4 @@
+import pkg.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Ttt implements GameState{
@@ -9,7 +10,33 @@ public class Ttt implements GameState{
     this.o = o;
     current = x;
   }
-
+  public Enum Status{
+    X,
+    O,
+    BLANK
+  }
+  public class Square extends Rectangle/*an individual TTT square, of which there shall be nine*/{
+    public Status current = Status.BLANK;
+    int row;
+    int col;
+    public Square(int row, int col){
+      this.row = row;
+      this.col = col;
+    }
+    public boolean setStatus(Status q){
+      if(q = Status.BLANK||current != Status.BLANK) return false;
+      current = q;
+      return true;
+    }
+    public Status getStatus(){
+      return current;
+    }
+    public String toString(){
+      if(current == Status.X) return "X";
+      if(current == Status.O) return "O";
+      return "-";
+    }
+  }
   
   public static Ttt setup(){
 	  
