@@ -148,9 +148,9 @@ public class Ttt implements GameState{
   
   public String toString(){
     String outputS = "";
-    for(String[] r:state){
-      for(String c:r){
-        outputS += +" ";
+    for(Square[] r:state){
+      for(Square c:r){
+        output += c.toString()+" ";
       }
       outputS += "\n";
     }
