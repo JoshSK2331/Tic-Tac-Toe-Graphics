@@ -154,7 +154,7 @@ public class Ttt implements GameState{
     String outputS = "";
     for(Square[] r:state){
       for(Square c:r){
-        output += c.toString()+" ";
+        outputS += c.toString()+" ";
       }
       outputS += "\n";
     }
