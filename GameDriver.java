@@ -1,6 +1,5 @@
 import java.util.Scanner;
-public class GameDriver{
-	
+public class GameDriver implements InputControl, InputKeyControl{
 	
 	private GameState state;
 	
@@ -44,6 +43,8 @@ public class GameDriver{
 		playGame();
 	}
 	public static void main(String[] args){
+		KeyController kC = new KeyController(Canvas.getInstance(),new starter());
+		MouseController mC = new MouseController(Canvas.getInstance(),new starter());
 		new GameDriver(Ttt.setup()).play();
 		System.out.println("\nplay again? y/n");
 		//used to be the most beautiful line of code but tim killed it
@@ -53,5 +54,9 @@ public class GameDriver{
 			main(args);
 		}
 		else System.out.println("\nSO LONG");
+	}
+	public void onMouseClick(double x, double y) {
+		System.out.println(x,y);
+
 	}
 }
