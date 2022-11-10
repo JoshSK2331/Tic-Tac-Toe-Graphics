@@ -81,27 +81,27 @@ public class Ttt implements GameState{
     //three ways to win: diagonal, vertical, horizontal
     Status potentialWinner = state[0][0].getStatus();
     if(potentialWinner != null){
-      if(potentialWinner == fromString(1, 1) && potentialWinner ==fromString(2, 2))
+      if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
         return potentialWinner;//diagonal
-      if(potentialWinner == fromString(0, 1) && potentialWinner == fromString(0, 2))
+      if(potentialWinner == state[0][1].getStatus() && potentialWinner == state[0][2].getStatus())
         return potentialWinner;//vertical
-      if(potentialWinner == fromString(1, 0)&& potentialWinner == fromString(2, 0))
+      if(potentialWinner == state[1][0].getStatus()&& potentialWinner == state[2][0].getStatus())
         return potentialWinner;//horizontal
     }
-    potentialWinner = fromString(1, 1);
+    potentialWinner = state[1][1].getStatus();
     if(potentialWinner != null){
-      if(potentialWinner == fromString(2, 0) && potentialWinner ==fromString(0, 2))
+      if(potentialWinner == state[2][0].getStatus() && potentialWinner ==state[0][2].getStatus())
         return potentialWinner;//diagonal
-      if(potentialWinner == fromString(1, 0) && potentialWinner == fromString(1, 2))
+      if(potentialWinner == state[1][0].getStatus() && potentialWinner == state[1][2].getStatus())
         return potentialWinner;//vertical
-      if(potentialWinner == fromString(0, 1)&& potentialWinner == fromString(2, 1))
+      if(potentialWinner == state[0][1].getStatus()&& potentialWinner == state[2][1].getStatus())
         return potentialWinner;//horizontal
     }
-    potentialWinner = fromString(2, 2);
+    potentialWinner = state[2][2].getStatus();
     if(potentialWinner != null){
-      if(potentialWinner == fromString(2, 0) && potentialWinner == fromString(2, 1))
+      if(potentialWinner == state[2][0].getStatus() && potentialWinner == state[2][1].getStatus())
         return potentialWinner;//vertical
-      if(potentialWinner == fromString(0, 2)&& potentialWinner == fromString(0, 1))
+      if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
         return potentialWinner;//horizontal
     }
     return null;
