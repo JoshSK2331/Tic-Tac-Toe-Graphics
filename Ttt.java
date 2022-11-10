@@ -10,7 +10,7 @@ public class Ttt implements GameState{
     this.o = o;
     current = x;
   }
-  public Enum Status{
+  public enum Status{
     X,
     O,
     BLANK
@@ -19,15 +19,17 @@ public class Ttt implements GameState{
     public Status current = Status.BLANK;
     int row;
     int col;
-    int factor = 50;
+    static int factor = 50;
     public Square(int row, int col){
       super(row*factor, col*factor, factor, factor);
       this.row = row;
       this.col = col;
+      this.draw();
     }
     public boolean setStatus(Status q){
-      if(q = Status.BLANK||current != Status.BLANK) return false;
+      if(q == Status.BLANK||current != Status.BLANK) return false;
       current = q;
+      this.draw();
       return true;
     }
     public Status getStatus(){
@@ -41,9 +43,10 @@ public class Ttt implements GameState{
     }
     @Override
     public void draw(){
+      this.undraw();
       super.draw();
       Text label = new Text(super.getX(), super.getY(), this.toString());
-      label.grow(label.width()*5, label.height*5);
+      label.grow(label.getWidth()*5, label.getHeight()*5);
       label.draw();
     }
   }
@@ -55,7 +58,7 @@ public class Ttt implements GameState{
     Player x = new Player(reader.nextLine().trim()+ " (x)");
     System.out.println("\nPlayer Two, enter your name: ");
     Player o = new Player(reader.nextLine().trim()+" (o)");
-	System.out.print("\n");
+	  System.out.print("\n");
     
     return new Ttt(x,o);
 	
@@ -79,6 +82,7 @@ public class Ttt implements GameState{
   public Player getWinner(){
     //it is impossible to win without either having [0, 0], [1, 1], or [2, 2]
     //three ways to win: diagonal, vertical, horizontal
+    /*
     Status potentialWinner = state[0][0].getStatus();
     if(potentialWinner != null){
       if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
@@ -103,7 +107,7 @@ public class Ttt implements GameState{
         return potentialWinner;//vertical
       if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
         return potentialWinner;//horizontal
-    }
+    }*/
     return null;
   }
   
