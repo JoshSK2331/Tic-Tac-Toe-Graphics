@@ -19,7 +19,9 @@ public class Ttt implements GameState{
     public Status current = Status.BLANK;
     int row;
     int col;
+    int factor = 50;
     public Square(int row, int col){
+      super(row*factor, col*factor, factor, factor);
       this.row = row;
       this.col = col;
     }
@@ -29,12 +31,20 @@ public class Ttt implements GameState{
       return true;
     }
     public Status getStatus(){
+      draw();
       return current;
     }
     public String toString(){
       if(current == Status.X) return "X";
       if(current == Status.O) return "O";
-      return "-";
+      return " ";
+    }
+    @Override
+    public void draw(){
+      super.draw();
+      Text label = new Text(super.getX(), super.getY(), this.toString());
+      label.grow(label.width()*5, label.height*5);
+      label.draw();
     }
   }
   
@@ -72,8 +82,8 @@ public class Ttt implements GameState{
       if(potentialWinner == fromString(1, 0)&& potentialWinner == fromString(2, 0))
         return potentialWinner;//horizontal
     }
+    potentialWinner = fromString(1, 1);
     if(potentialWinner != null){
-      potentialWinner = fromString(1, 1);
       if(potentialWinner == fromString(2, 0) && potentialWinner ==fromString(0, 2))
         return potentialWinner;//diagonal
       if(potentialWinner == fromString(1, 0) && potentialWinner == fromString(1, 2))
