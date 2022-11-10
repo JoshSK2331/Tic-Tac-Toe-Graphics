@@ -69,7 +69,7 @@ public class Ttt implements GameState{
   public Player getWinner(){
     //it is impossible to win without either having [0, 0], [1, 1], or [2, 2]
     //three ways to win: diagonal, vertical, horizontal
-    Player potentialWinner = fromString(0, 0);
+    Status potentialWinner = state[0][0].getStatus();
     if(potentialWinner != null){
       if(potentialWinner == fromString(1, 1) && potentialWinner ==fromString(2, 2))
         return potentialWinner;//diagonal
@@ -148,10 +148,10 @@ public class Ttt implements GameState{
   }
   
   //helper methods
-  private Player fromString(String s){
-    if(s.toUpperCase().equals("X"))
+  private Player fromStatus(Status s){
+    if(s == Status.X)
        return x;
-    if(s.toUpperCase().equals("O"))
+    if(s == Status.O)
        return o;
     return null;//a blank string
   }
@@ -161,8 +161,5 @@ public class Ttt implements GameState{
     else if(current == o)
       current = x;
     else System.out.println("error with player names");
-  }
-  private Player fromString(int a, int b){
-    return fromString(state[a][b]);
   }
 }
