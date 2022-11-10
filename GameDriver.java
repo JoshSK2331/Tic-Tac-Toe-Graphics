@@ -59,4 +59,8 @@ public class GameDriver implements InputControl, InputKeyControl{
 		System.out.println(x,y);
 
 	}
+	public void keyPress(String s) {
+		// enter code here
+
+	}
 }
