@@ -5,6 +5,22 @@ public class Ttt implements GameState{
   private Player x;
   private Player o;
   private Player current;
+  
+   
+   // private String[][] state = {
+    // {"-", "-", "-"}, 
+    // {"-", "-", "-"},
+    // {"-", "-", "-"}
+  // };
+  private Square[][] state = {
+	  {new Square(0,0),new Square(0,1),new Square(0,2)},
+	  {new Square(1,0),new Square(1,1),new Square(1,2)},
+	  {new Square(2,0),new Square(2,1),new Square(2,2)}
+  };
+  
+  //how to make state static?
+  private static Square[][] stateStatic = state;
+  
   public Ttt(Player x, Player o){
     this.x = x;
     this.o = o;
@@ -19,7 +35,7 @@ public class Ttt implements GameState{
     public Status current = Status.BLANK;
     int row;
     int col;
-    static int factor = 50;
+    final static int factor = 50;
     public Square(int row, int col){
       super(row*factor, col*factor, factor, factor);
       this.row = row;
@@ -52,7 +68,12 @@ public class Ttt implements GameState{
   }
   
   public static Ttt setup(){
-	  
+	
+	for(Square[] r:stateStatic){
+		for(Square c:r){
+			c.draw();
+		}
+	}
     Scanner reader = new Scanner(System.in);
     System.out.println("Player One, enter your name: ");
     Player x = new Player(reader.nextLine().trim()+ " (x)");
@@ -74,6 +95,7 @@ public class Ttt implements GameState{
 	  {new Square(1,0),new Square(1,1),new Square(1,2)},
 	  {new Square(2,0),new Square(2,1),new Square(2,2)}
   };
+
   
   public boolean isGameover(){
    return getWinner() != null || getCurrentMoves().size()==0;
@@ -153,7 +175,7 @@ public class Ttt implements GameState{
     String outputS = "";
     for(Square[] r:state){
       for(Square c:r){
-        output += c.toString()+" ";
+        outputS += c.toString()+" ";
       }
       outputS += "\n";
     }
