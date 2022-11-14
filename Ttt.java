@@ -98,7 +98,18 @@ public class Ttt implements GameState{
     return new Ttt(x,o);
 	
   }
- 
+  
+   // private String[][] state = {
+    // {"-", "-", "-"}, 
+    // {"-", "-", "-"},
+    // {"-", "-", "-"}
+  // };
+  public Square[][] state = {
+	  {new Square(0,0),new Square(0,1),new Square(0,2)},
+	  {new Square(1,0),new Square(1,1),new Square(1,2)},
+	  {new Square(2,0),new Square(2,1),new Square(2,2)}
+  };
+
   
   public boolean isGameover(){
    return getWinner() != null || getCurrentMoves().size()==0;
@@ -107,7 +118,6 @@ public class Ttt implements GameState{
   public Player getWinner(){
     //it is impossible to win without either having [0, 0], [1, 1], or [2, 2]
     //three ways to win: diagonal, vertical, horizontal
-    /*
     Status potentialWinner = state[0][0].getStatus();
     if(potentialWinner != null){
       if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
@@ -132,7 +142,7 @@ public class Ttt implements GameState{
         return potentialWinner;//vertical
       if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
         return potentialWinner;//horizontal
-    }*/
+    }
     return null;
   }
   
