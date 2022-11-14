@@ -4,8 +4,11 @@ public class GameDriver implements InputControl, InputKeyControl{
 	
 	private GameState state;
 	
+	
 	public GameDriver(GameState initial){
 		state = initial;
+	}
+	public GameDriver(){
 	}
 	
 	/*
@@ -44,8 +47,8 @@ public class GameDriver implements InputControl, InputKeyControl{
 		playGame();
 	}
 	public static void main(String[] args){
-		KeyController kC = new KeyController(Canvas.getInstance(),new starter());
-		MouseController mC = new MouseController(Canvas.getInstance(),new starter());
+		KeyController kC = new KeyController(Canvas.getInstance(),new GameDriver());
+		MouseController mC = new MouseController(Canvas.getInstance(),new GameDriver());
 		new GameDriver(Ttt.setup()).play();
 		System.out.println("\nplay again? y/n");
 		//used to be the most beautiful line of code but tim killed it
@@ -57,8 +60,8 @@ public class GameDriver implements InputControl, InputKeyControl{
 		else System.out.println("\nSO LONG");
 	}
 	public void onMouseClick(double x, double y) {
-		System.out.println(x,y);
-
+		y -= 30;
+		System.out.println(x+" "+y);
 	}
 	public void keyPress(String s) {
 		// enter code here
