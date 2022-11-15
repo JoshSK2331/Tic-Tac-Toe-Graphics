@@ -51,7 +51,7 @@ public class Ttt implements GameState{
 		return row;
 	}
 	
-	public col getCol(){
+	public int getCol(){
 		return col;
 	}
 	
@@ -98,17 +98,7 @@ public class Ttt implements GameState{
     return new Ttt(x,o);
 	
   }
-  
-   // private String[][] state = {
-    // {"-", "-", "-"}, 
-    // {"-", "-", "-"},
-    // {"-", "-", "-"}
-  // };
-  public Square[][] state = {
-	  {new Square(0,0),new Square(0,1),new Square(0,2)},
-	  {new Square(1,0),new Square(1,1),new Square(1,2)},
-	  {new Square(2,0),new Square(2,1),new Square(2,2)}
-  };
+
 
   
   public boolean isGameover(){
@@ -119,29 +109,58 @@ public class Ttt implements GameState{
     //it is impossible to win without either having [0, 0], [1, 1], or [2, 2]
     //three ways to win: diagonal, vertical, horizontal
     Status potentialWinner = state[0][0].getStatus();
+	Player potentialWinnerP;
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
+	
     if(potentialWinner != null){
       if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
-        return potentialWinner;//diagonal
+        return potentialWinnerP;//diagonal
       if(potentialWinner == state[0][1].getStatus() && potentialWinner == state[0][2].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[1][0].getStatus()&& potentialWinner == state[2][0].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     potentialWinner = state[1][1].getStatus();
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
     if(potentialWinner != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner ==state[0][2].getStatus())
-        return potentialWinner;//diagonal
+        return potentialWinnerP;//diagonal
       if(potentialWinner == state[1][0].getStatus() && potentialWinner == state[1][2].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[0][1].getStatus()&& potentialWinner == state[2][1].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     potentialWinner = state[2][2].getStatus();
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
     if(potentialWinner != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner == state[2][1].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     return null;
   }
