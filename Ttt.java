@@ -13,12 +13,11 @@ public class Ttt implements GameState{
     // {"-", "-", "-"}
   // };
   
-  private Square[][] state = {
+  private static Square[][] state = {
 	  {new Square(0,0),new Square(0,1),new Square(0,2)},
 	  {new Square(1,0),new Square(1,1),new Square(1,2)},
 	  {new Square(2,0),new Square(2,1),new Square(2,2)}
 	};
-
   
   public Ttt(Player x, Player o){
     this.x = x;
@@ -41,21 +40,23 @@ public class Ttt implements GameState{
 	  System.out.print("\n");
     this.x = x;
 	this.o = o;
+	current = x;
 	
   }
+  
   
   public enum Status{
     X,
     O,
     BLANK
   }
-  public class Square extends Rectangle/*an individual TTT square, of which there shall be nine*/{
+  public static class Square extends Rectangle/*an individual TTT square, of which there shall be nine*/{
     public Status current = Status.BLANK;
     int row;
     int col;
     final static int factor = 50;
     public Square(int row, int col){
-      super(row*factor, col*factor, factor, factor);
+      super(col*factor, row*factor, factor, factor);
       this.row = row;
       this.col = col;
       this.draw();
