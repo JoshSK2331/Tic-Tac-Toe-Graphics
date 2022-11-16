@@ -18,6 +18,7 @@ public class Ttt implements GameState{
 	  {new Square(1,0),new Square(1,1),new Square(1,2)},
 	  {new Square(2,0),new Square(2,1),new Square(2,2)}
 	};
+
   
   public Ttt(Player x, Player o){
     this.x = x;
@@ -28,6 +29,19 @@ public class Ttt implements GameState{
 			c.draw();
 		}
 	}
+  }
+  
+  public Ttt (){
+	
+    Scanner reader = new Scanner(System.in);
+    System.out.println("Player One, enter your name: ");
+    Player x = new Player(reader.nextLine().trim()+ " (x)");
+    System.out.println("\nPlayer Two, enter your name: ");
+    Player o = new Player(reader.nextLine().trim()+" (o)");
+	  System.out.print("\n");
+    this.x = x;
+	this.o = o;
+	
   }
   
   public enum Status{
@@ -86,7 +100,7 @@ public class Ttt implements GameState{
 		return false;
 	}
   }
-  public Square whichSquare(double x, double y){
+  public static Square whichSquare(double x, double y){
 	for(Square[] r:state){
 		for(Square c:r){
 			if(c.containsCoord(x,y)){
@@ -96,18 +110,7 @@ public class Ttt implements GameState{
 	}
 	return null;
   }
-  public static Ttt (){
-	
-    Scanner reader = new Scanner(System.in);
-    System.out.println("Player One, enter your name: ");
-    Player x = new Player(reader.nextLine().trim()+ " (x)");
-    System.out.println("\nPlayer Two, enter your name: ");
-    Player o = new Player(reader.nextLine().trim()+" (o)");
-	  System.out.print("\n");
-    
-    return new Ttt(x,o);
-	
-  }
+  
 
 
   
