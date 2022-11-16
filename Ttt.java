@@ -86,7 +86,17 @@ public class Ttt implements GameState{
 		return false;
 	}
   }
-  public static Ttt setup(){
+  public Square whichSquare(double x, double y){
+	for(Square[] r:state){
+		for(Square c:r){
+			if(c.containsCoord(x,y)){
+				return c;
+			}
+		}
+	}
+	return null;
+  }
+  public static Ttt (){
 	
     Scanner reader = new Scanner(System.in);
     System.out.println("Player One, enter your name: ");
