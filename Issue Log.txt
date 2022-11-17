@@ -1,0 +1,3 @@
+1) Drawn text is way too big
+2) When replaying, the previous marks are not erased
+3) Fix main and also fix the mouse click checker

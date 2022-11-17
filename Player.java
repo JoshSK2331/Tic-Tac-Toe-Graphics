@@ -1,11 +1,19 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Player{
+	
   private String name; // name of this player
+  private static ArrayList<Player> playerList = new ArrayList<Player>();
   
   public Player (String aName){ 
 	name = aName;
+	playerList.add(this);
   }
  
+  public static ArrayList<Player> getPlayerList(){
+	 return playerList;
+  }	  
+  
   public String getName(){ 
 	return name; 
   }

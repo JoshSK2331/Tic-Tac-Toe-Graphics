@@ -12,20 +12,24 @@ public class Ttt implements GameState{
     // {"-", "-", "-"},
     // {"-", "-", "-"}
   // };
+  
   private Square[][] state = {
 	  {new Square(0,0),new Square(0,1),new Square(0,2)},
 	  {new Square(1,0),new Square(1,1),new Square(1,2)},
 	  {new Square(2,0),new Square(2,1),new Square(2,2)}
-  };
-  
-  //how to make state static?
-  private static Square[][] stateStatic = state;
+	};
   
   public Ttt(Player x, Player o){
     this.x = x;
     this.o = o;
     current = x;
+	for(Square[] r:state){
+		for(Square c:r){
+			c.draw();
+		}
+	}
   }
+  
   public enum Status{
     X,
     O,
@@ -42,6 +46,15 @@ public class Ttt implements GameState{
       this.col = col;
       this.draw();
     }
+	
+	public int getRow(){
+		return row;
+	}
+	
+	public int getCol(){
+		return col;
+	}
+	
     public boolean setStatus(Status q){
       if(q == Status.BLANK||current != Status.BLANK) return false;
       current = q;
@@ -65,15 +78,26 @@ public class Ttt implements GameState{
       label.grow(label.getWidth()*5, label.getHeight()*5);
       label.draw();
     }
-  }
-  
-  public static Ttt setup(){
 	
-	for(Square[] r:stateStatic){
+	public boolean containsCoord(double x, double y){
+		if(x>super.getX()&&x<super.getX()+super.getWidth()&&y>super.getY()&&y<super.getY()+super.getHeight()){
+			return true;
+		}
+		return false;
+	}
+  }
+  public Square whichSquare(double x, double y){
+	for(Square[] r:state){
 		for(Square c:r){
-			c.draw();
+			if(c.containsCoord(x,y)){
+				return c;
+			}
 		}
 	}
+	return null;
+  }
+  public static Ttt (){
+	
     Scanner reader = new Scanner(System.in);
     System.out.println("Player One, enter your name: ");
     Player x = new Player(reader.nextLine().trim()+ " (x)");
@@ -84,17 +108,7 @@ public class Ttt implements GameState{
     return new Ttt(x,o);
 	
   }
-  
-   // private String[][] state = {
-    // {"-", "-", "-"}, 
-    // {"-", "-", "-"},
-    // {"-", "-", "-"}
-  // };
-  public Square[][] state = {
-	  {new Square(0,0),new Square(0,1),new Square(0,2)},
-	  {new Square(1,0),new Square(1,1),new Square(1,2)},
-	  {new Square(2,0),new Square(2,1),new Square(2,2)}
-  };
+
 
   
   public boolean isGameover(){
@@ -105,29 +119,58 @@ public class Ttt implements GameState{
     //it is impossible to win without either having [0, 0], [1, 1], or [2, 2]
     //three ways to win: diagonal, vertical, horizontal
     Status potentialWinner = state[0][0].getStatus();
+	Player potentialWinnerP;
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
+	
     if(potentialWinner != null){
       if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
-        return potentialWinner;//diagonal
+        return potentialWinnerP;//diagonal
       if(potentialWinner == state[0][1].getStatus() && potentialWinner == state[0][2].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[1][0].getStatus()&& potentialWinner == state[2][0].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     potentialWinner = state[1][1].getStatus();
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
     if(potentialWinner != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner ==state[0][2].getStatus())
-        return potentialWinner;//diagonal
+        return potentialWinnerP;//diagonal
       if(potentialWinner == state[1][0].getStatus() && potentialWinner == state[1][2].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[0][1].getStatus()&& potentialWinner == state[2][1].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     potentialWinner = state[2][2].getStatus();
+	if(potentialWinner == Status.X){
+		potentialWinnerP = Player.getPlayerList().get(0);
+	}
+	else if(potentialWinner == Status.O){
+		potentialWinnerP = Player.getPlayerList().get(1);
+	}
+	else{
+		potentialWinnerP = null;
+	}
     if(potentialWinner != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner == state[2][1].getStatus())
-        return potentialWinner;//vertical
+        return potentialWinnerP;//vertical
       if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
-        return potentialWinner;//horizontal
+        return potentialWinnerP;//horizontal
     }
     return null;
   }
@@ -169,6 +212,16 @@ public class Ttt implements GameState{
     else{
       System.out.println("NOOOOOOOOOOOOOOOOOOO");//test
     }
+  }
+  
+  public void makeMove(double x, double y){
+	for(Square[] r:state){
+		for(Square c:r){
+			if(c.containsCoord(x,y)){
+				Square contained = c;
+			}
+		}
+	}
   }
   
   public String toString(){
