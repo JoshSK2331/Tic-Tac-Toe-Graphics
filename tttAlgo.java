@@ -1,35 +1,39 @@
 /*to go in the Ttt classpublic class tttAlgo{*/
-    public Move quickWin(Ttt theoretical){
-        
-        Player p = new Player("player");
-        Player c = new Player("computer")
-        Ttt check = new Ttt(p, c);
-        check.state = theoretical.state;
-        for(Move m: Move(theoretical.getCurrentMoves())){
-            //check for each move made
-            theoretical.makeMove(m.getMove());
-            if(theoretical.getWinner().equals(c)) return m;
-            //check each move if it will make the computer win
-        }
-        return null;
-    }
-    public Move recursive(Ttt theoretical){
-        if(quickWin(theoretical)!=null)
-            return quickWin(theoretical);
-        for(Move me: new Move(theoretical.getCurrentMoves())){
-            theoretical.makeMove(me.getMove())
+    public String hasWin(Player p){
+        String[] potentialMoves = this.getCurrentMoves();
+        Ttt check;
+        int counter = 0;
+        while(counter<potentialMoves.length){
+            check = this.clone();
+            check.makeMove(potentialMoves[counter]);
+            if(check.getWinner == p)
+                return potentialMoves[i];
+            counter++;
         }
     }
-    public class Move{
-        private int x;
-        private int y;
-        private Move(String moveName){
-            String[] moveS = move.split(" ");
-            x = Integer.parseInt(moveS[0]);
-            y = Integer.parseInt(moveS[1]);
-        }
-        public String getMove(){
-            return x+" "+y;
+    
+    public String pickMove(){
+        Player p = new Player("play!");
+        Player c = new Player("computer!")
+        Ttt temp = new Ttt(p, c);
+        temp.state = this.state;
+        String winningMove = hasWin(c);
+            if(winningMove!=null)){
+                return winningMove;
+            }
+
+            String currentMoves = this.getCurrentMoves();
+            ArrayList<String> winningMoves = new ArrayList<String>();
+            for(int i = 0; i<currentMoves.length; i++){
+                temp.state = this.state;
+                temp.makeMove(currentMoves[i]);
+                if(hasWin(p)==null){
+                    winningMoves.add(currentMoves[i]);
+                }
+            }
+            if(winningMoves.size()==0){
+                return currentMoves[0];
+            }
+            return winningMoves[(int)(winningMoves.length*Math.random()];
         }
     }
-}
