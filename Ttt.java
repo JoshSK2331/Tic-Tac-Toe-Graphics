@@ -44,7 +44,6 @@ public class Ttt implements GameState{
 	
   }
   
-  
   public enum Status{
     X,
     O,
@@ -54,7 +53,7 @@ public class Ttt implements GameState{
     public Status current = Status.BLANK;
     int row;
     int col;
-    final static int factor = 50;
+    final static int factor = 100;
     public Square(int row, int col){
       super(col*factor, row*factor, factor, factor);
       this.row = row;

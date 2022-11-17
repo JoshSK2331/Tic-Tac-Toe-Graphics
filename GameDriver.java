@@ -65,9 +65,14 @@ public class GameDriver implements InputControl, InputKeyControl{
 	}
 	public void onMouseClick(double x, double y) {
 		
-			y -= 30;
-			Ttt.Square apple = Ttt.whichSquare(x,y);
+		y -= 30;
+		Ttt.Square apple = Ttt.whichSquare(x,y);
+		if(apple != null){
 			System.out.println(apple.getRow()+" "+apple.getCol());
+		}
+	
+		
+			
 		
 	}
 	public void keyPress(String s) {
