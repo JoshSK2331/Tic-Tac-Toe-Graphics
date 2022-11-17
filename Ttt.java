@@ -270,11 +270,11 @@ public class Ttt implements GameState{
     */
     public String pickMove(){
         Player p = new Player("play!");
-        Player c = new Player("computer!")
+        Player c = new Player("computer!");
         Ttt temp = new Ttt(p, c);
         temp.state = this.state;
         String winningMove = hasWin(c);
-            if(winningMove!=null)){
+            if(winningMove!=null){
                 return winningMove;
             }
 
@@ -290,6 +290,6 @@ public class Ttt implements GameState{
             if(winningMoves.size()==0){
                 return currentMoves[0];
             }
-            return winningMoves[(int)(winningMoves.length*Math.random()];
+            return winningMoves[(int)(winningMoves.length*Math.random())];
         }
 }
