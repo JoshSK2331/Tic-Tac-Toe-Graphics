@@ -93,7 +93,7 @@ public class Ttt implements GameState{
       this.undraw();
       super.draw();
       Text label = new Text(super.getX(), super.getY(), this.toString());
-      label.grow(label.getWidth()*5, label.getHeight()*5);
+      label.grow((factor*2/3)+(factor/6), (factor*2/3)+(factor/6));
       label.draw();
     }
 	
