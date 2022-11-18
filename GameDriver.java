@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class GameDriver implements InputControl, InputKeyControl{
 	
 	private GameState state;
+	private boolean gameRunning = false;
 	
 	
 	public GameDriver(GameState initial){
@@ -22,6 +23,7 @@ public class GameDriver implements InputControl, InputKeyControl{
 
 	public void play(){
 		playGame();
+		gameRunning = true;
 	}
 	public void playGame(){
 		if(state.isGameover()){ //checks for winner or a draw
@@ -65,11 +67,23 @@ public class GameDriver implements InputControl, InputKeyControl{
 	}
 	public void onMouseClick(double x, double y) {
 		
+		
 		y -= 30;
 		Ttt.Square apple = Ttt.whichSquare(x,y);
 		if(apple != null){
-			System.out.println(apple.getRow()+" "+apple.getCol());
+			game.makeMove(apple.getRow()+" "+apple.getCol());
 		}
+		Ttt.Square[][] temp = game.getState();
+		
+		//text outputs the board
+		for(int r = 0;r<temp.length;r++){
+			for(int c = 0;c<temp[0].length;c++){
+				System.out.print(temp[r][c]+" ");
+			}
+			System.out.print("\n");
+		}
+		
+		
 	
 		
 			

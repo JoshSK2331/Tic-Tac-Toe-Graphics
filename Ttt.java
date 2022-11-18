@@ -19,6 +19,10 @@ public class Ttt implements GameState{
 	  {new Square(2,0),new Square(2,1),new Square(2,2)}
 	};
   
+  public static Square[][] getState(){
+	return state;
+  }
+  
   public Ttt(Player x, Player o){
     this.x = x;
     this.o = o;
@@ -185,10 +189,13 @@ public class Ttt implements GameState{
   
   public ArrayList<String> getCurrentMoves(){
     ArrayList<String> result = new ArrayList<String>();
-    for(int i = 0; i<state.length; i++)
-      for(int j = 0; j<state.length; j++)
-        if(state[i][j].getStatus() == Status.BLANK)
+    for(int i = 0; i<state.length; i++){
+      for(int j = 0; j<state.length; j++){
+        if(state[i][j].getStatus() == Status.BLANK){
           result.add(i+" "+j);
+		}
+	  }
+	}
     return result;
   }
   
@@ -246,7 +253,7 @@ public class Ttt implements GameState{
        return o;
     return null;//a blank string
   }
-  private void togglePlayers(){
+  public void togglePlayers(){
     if(current == x)
       current = o;
     else if(current == o)
