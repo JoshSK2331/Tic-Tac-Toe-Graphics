@@ -128,16 +128,16 @@ public class Ttt implements GameState{
     Status potentialWinner = state[0][0].getStatus();
 	Player potentialWinnerP;
 	if(potentialWinner == Status.X){
-		potentialWinnerP = Player.getPlayerList().get(0);
+		potentialWinnerP = x;
 	}
 	else if(potentialWinner == Status.O){
-		potentialWinnerP = Player.getPlayerList().get(1);
+		potentialWinnerP = o;
 	}
 	else{
 		potentialWinnerP = null;
 	}
 	
-    if(potentialWinner != null){
+    if(potentialWinnerP != null){
       if(potentialWinner == state[1][1].getStatus() && potentialWinner ==state[2][2].getStatus())
         return potentialWinnerP;//diagonal
       if(potentialWinner == state[0][1].getStatus() && potentialWinner == state[0][2].getStatus())
@@ -147,15 +147,15 @@ public class Ttt implements GameState{
     }
     potentialWinner = state[1][1].getStatus();
 	if(potentialWinner == Status.X){
-		potentialWinnerP = Player.getPlayerList().get(0);
+		potentialWinnerP = x;
 	}
 	else if(potentialWinner == Status.O){
-		potentialWinnerP = Player.getPlayerList().get(1);
+		potentialWinnerP = o;
 	}
 	else{
 		potentialWinnerP = null;
 	}
-    if(potentialWinner != null){
+    if(potentialWinnerP != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner ==state[0][2].getStatus())
         return potentialWinnerP;//diagonal
       if(potentialWinner == state[1][0].getStatus() && potentialWinner == state[1][2].getStatus())
@@ -165,15 +165,15 @@ public class Ttt implements GameState{
     }
     potentialWinner = state[2][2].getStatus();
 	if(potentialWinner == Status.X){
-		potentialWinnerP = Player.getPlayerList().get(0);
+		potentialWinnerP = x;
 	}
 	else if(potentialWinner == Status.O){
-		potentialWinnerP = Player.getPlayerList().get(1);
+		potentialWinnerP = o;
 	}
 	else{
 		potentialWinnerP = null;
 	}
-    if(potentialWinner != null){
+    if(potentialWinnerP != null){
       if(potentialWinner == state[2][0].getStatus() && potentialWinner == state[2][1].getStatus())
         return potentialWinnerP;//vertical
       if(potentialWinner == state[0][2].getStatus()&& potentialWinner == state[0][1].getStatus())
