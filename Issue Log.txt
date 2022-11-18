@@ -1,3 +1,5 @@
-1) Drawn text is way too big
+1) Drawn text is way too big, position is also off
 2) When replaying, the previous marks are not erased
 3) Allows people to click before initializing characters ( make a boolean checking whether characters initialized)
+4) When win happens, game doesn't stop
+5) No terminal outputs when playing via mouseclick
