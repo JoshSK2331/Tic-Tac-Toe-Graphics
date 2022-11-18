@@ -35,8 +35,11 @@ public class Ttt implements GameState{
     Scanner reader = new Scanner(System.in);
     System.out.println("Player One, enter your name: ");
     Player x = new Player(reader.nextLine().trim()+ " (x)");
-    System.out.println("\nPlayer Two, enter your name: ");
-    Player o = new Player(reader.nextLine().trim()+" (o)");
+    System.out.println("\nPlayer Two, enter your name or type cpu: ");
+    String c = reader.nextLine().trim();
+    Player o;
+    if(c.equals("CPU")) o = new Computer("CPU "+" (o)");
+    else o = new Player(reader.nextLine().trim()+" (o)");
 	  System.out.print("\n");
     this.x = x;
 	this.o = o;
@@ -89,7 +92,7 @@ public class Ttt implements GameState{
       this.undraw();
       super.draw();
       Text label = new Text(super.getX(), super.getY(), this.toString());
-      label.grow(label.getWidth()*5, label.getHeight()*5);
+      label.grow((factor*2/3)+(factor/6),(factor*2/3)+(factor/6));
       label.draw();
     }
 	
@@ -99,6 +102,11 @@ public class Ttt implements GameState{
 		}
 		return false;
 	}
+  public Square clone(){
+    Square temp = new Square(this.row, this.col);
+    temp.setStatus(this.getStatus());
+    return temp;
+  }
   }
   public static Square whichSquare(double x, double y){
 	for(Square[] r:state){
@@ -246,11 +254,68 @@ public class Ttt implements GameState{
        return o;
     return null;//a blank string
   }
-  private void togglePlayers(){
+  public void togglePlayers(){
     if(current == x)
       current = o;
     else if(current == o)
       current = x;
     else System.out.println("error with player names");
   }
+
+  //helper method to pick moves
+  public String hasWin(Player p){
+        ArrayList<String> potentialMoves = this.getCurrentMoves();
+        Ttt check;
+        int counter = 0;
+        while(counter<potentialMoves.size()){
+            check = this.clone();
+            check.makeMove(potentialMoves.get(counter));
+            if(check.getWinner() == p)
+                return potentialMoves.get(counter);
+            counter++;
+        }
+        return null;
+    }
+    /*method to pick moves:
+      not guaranteed to win
+      guaranteed to not lose on the next move if possible
+      randomly picks moves that meet this criterion
+    */
+    public String pickMove(){
+        Player p = new Player("play!");
+        Player c = new Player("computer!");
+        Ttt temp = new Ttt(p, c);
+        temp.state = this.cloneState();
+        String winningMove = hasWin(c);
+            if(winningMove!=null){
+                return winningMove;
+            }
+
+            ArrayList<String> currentMoves = this.getCurrentMoves();
+            ArrayList<String> winningMoves = new ArrayList<String>();
+            for(int i = 0; i<currentMoves.size(); i++){
+                temp.state = this.cloneState();
+                temp.makeMove(currentMoves.get(i));
+                if(hasWin(p)==null){
+                    winningMoves.add(currentMoves.get(i));
+                }
+            }
+            if(winningMoves.size()==0){
+                return currentMoves.get(0);
+            }
+            return winningMoves.get((int)(winningMoves.size()*Math.random()));
+        }
+    public Square[][] cloneState(){
+      Square[][] temp = this.state;
+      for(Square[] e: temp)
+        for(Square f: e)
+          f = f.clone();
+      return temp;
+    }
+    public Ttt clone(){
+      Ttt temp = new Ttt(new Player(x.getName()), new Player(o.getName()));
+      if(temp.getCurrentPlayer()!=this.getCurrentPlayer()) temp.togglePlayers();
+      temp.state = cloneState();
+      return temp;
+    }
 }
