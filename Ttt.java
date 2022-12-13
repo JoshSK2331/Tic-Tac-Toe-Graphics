@@ -1,11 +1,12 @@
 import pkg.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Ttt implements GameState{
+public class Ttt implements GameState, InputControl, InputKeyControl{
   private Player x;
   private Player o;
   private Player current;
-  
+  public String moveMade;
+
    
    // private String[][] state = {
     // {"-", "-", "-"}, 
@@ -260,4 +261,12 @@ public class Ttt implements GameState{
       current = x;
     else System.out.println("error with player names");
   }
+	
+   public void mousePressed(int x, int y) {
+   	y -= 30;
+	Ttt.Square apple = Ttt.whichSquare(x,y);
+	moveMade = apple.getRow()+" "+apple.getCol();
+	synchronized(this){
+		notifyAll();
+	}
 }
