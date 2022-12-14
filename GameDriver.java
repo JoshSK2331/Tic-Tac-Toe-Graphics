@@ -1,6 +1,7 @@
 import pkg.*;
 import java.util.Scanner;
 
+
 public class GameDriver implements InputControl, InputKeyControl{
 	
 	private GameState state;
@@ -40,12 +41,9 @@ public class GameDriver implements InputControl, InputKeyControl{
 		
 		
 		//---------------------NEED TO IMPLEMENT A WAY TO WAIT FOR THE CLICK TO HAPPEN AND THEN MOVE ON
-		synchronized(GameDriver){
-			try{
-				this.sleep();
-			}
-			catch(Exception a){}
-		}
+		
+		
+		
 		
 		
 		
